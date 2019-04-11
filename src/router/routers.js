@@ -1,7 +1,7 @@
 export default [
     {
         path: '/',
-        name: 'Home',
+        name: 'Index',
         meta: {
             title: '首页',
         },

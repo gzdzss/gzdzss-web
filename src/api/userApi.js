@@ -1,6 +1,5 @@
 import request from '@/request'
 import config from '@/config'
-import {clearStorageToken, getStorageRefreshToken} from "@/util";
 
 const {oauth2client} = config
 
@@ -19,22 +18,25 @@ export const login = ({username, password}) => {
     });
 }
 
-export const refreshToken = () => {
-    const refresh_token = getStorageRefreshToken();
-    if (refresh_token) {
-        //清空当前的Token
-        clearStorageToken();
-        const param = {
-            'grant_type': 'refresh_token',
-            'refresh_token': refresh_token,
-        }
-        return request({
-            url: "/api/auth/oauth/token",
-            method: 'post',
-            params: param,
-            auth: oauth2client
-        });
+export const logout = () => {
+    return request({
+        url: "/api/auth/revoke",
+        method: 'post'
+    });
+}
+
+
+export const refreshToken = (refresh_token) => {
+    const param = {
+        'grant_type': 'refresh_token',
+        'refresh_token': refresh_token,
     }
+    return request({
+        url: "/api/auth/oauth/token",
+        method: 'post',
+        params: param,
+        auth: oauth2client
+    });
 }
 
 

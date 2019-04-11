@@ -3,10 +3,13 @@ export default {
     //全局标题
     title: 'gzDzss',
 
-
-    //请求超时时间
-    timeoutTimeOut: 1000,
-
+    //api配置
+    api : {
+        //请求超时时间
+        timeout: 1000,
+        //重试次数
+        maxRedirects : 0
+    },
 
     //客户端账号
     oauth2client: {
@@ -20,5 +23,4 @@ export default {
     refreshTokenKey: 'gzdzssRefreshToken',
     //token过期时间（秒）
     accessTokenExpiresKey: 'gzdzssAccessTokenExpires'
-
 }

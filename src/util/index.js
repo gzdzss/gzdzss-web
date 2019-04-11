@@ -1,42 +1,49 @@
 import config from '@/config'
 
 
+const {accessTokenExpiresKey, refreshTokenKey, accessTokenKey} = config;
+
 export const setStorageToken = (payload) => {
     //保存  accessToken
     if (payload && payload.access_token && payload.token_type) {
-        const token = payload.token_type + " " + payload.access_token;
-        localStorage.setItem(config.accessTokenKey, token)
+        const token = jointAccessToken(payload);
+        localStorage.setItem(accessTokenKey, token)
     }
     //保存  refresh_token
     if (payload && payload.refresh_token) {
-        localStorage.setItem(config.refreshTokenKey, payload.refresh_token)
+        localStorage.setItem(refreshTokenKey, payload.refresh_token)
     }
     //保存  过期时间
     if (payload && payload.expires_in) {
         const tokenExpires = (new Date().getTime() / 1000) + payload.expires_in;
-        localStorage.setItem(config.accessTokenExpiresKey, tokenExpires)
+        localStorage.setItem(accessTokenExpiresKey, tokenExpires)
     }
 }
 
 
+export const jointAccessToken = (payload) => {
+    return  payload.token_type + " " + payload.access_token;
+}
+
+
 export const getStorageAccessToken = () => {
-    return localStorage.getItem(config.accessTokenKey)
+    return localStorage.getItem(accessTokenKey)
 }
 
 export const getStorageRefreshToken = () => {
-    return localStorage.getItem(config.refreshTokenKey)
+    return localStorage.getItem(refreshTokenKey)
 }
 
 export const getAccessTokenExpires = () => {
-    return localStorage.getItem(config.accessTokenExpiresKey)
+    return localStorage.getItem(accessTokenExpiresKey)
 }
 
 
 //清空存储的token
 export const clearStorageToken = () => {
-    localStorage.removeItem(config.accessTokenKey)
-    localStorage.removeItem(config.refreshTokenKey)
-    localStorage.removeItem(config.accessTokenExpiresKey)
+    localStorage.removeItem(accessTokenKey)
+    localStorage.removeItem(refreshTokenKey)
+    localStorage.removeItem(accessTokenExpiresKey)
 }
 
 

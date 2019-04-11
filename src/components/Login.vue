@@ -8,16 +8,11 @@
             <button type="button" @click="login">login</button>
             <br>
         </form>
-        <button type="button" @click="orderList">order-list</button>
-        <button type="button" @click="ttt">ttt</button>
-        <br>
     </div>
 </template>
 
 <script>
     import {mapActions} from 'vuex'
-    import {list} from '@/api/orderApi'
-
     export default {
         name: "Login",
         data: () => ({
@@ -35,24 +30,12 @@
             ...mapActions([
                 'handleLogin'
             ]),
-
             login() {
                 this.handleLogin(this.loginForm).then(()=> {
-                    alert("登录成功")
+                    this.$router.push({
+                        name: 'Index'
+                    })
                 })
-            },
-            loginByAuth() {
-                window.location.href = 'http://localhost:7001/auth/oauth/authorize?client_id=aaaaa&redirect_uri=http://localhost:8080&response_type=code&scope=login userinfo'
-            },
-            orderList() {
-                list().then(res => {
-                    alert(res.data)
-                }).catch(e => {
-                    alert(e)
-                })
-            },
-            ttt() {
-                alert(new Date().getTime()/1000)
             }
         }
     }
