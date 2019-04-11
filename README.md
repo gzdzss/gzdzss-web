@@ -1,3 +1,8 @@
+
+#采用oauth2
+
+[后台java代码](https://github.com/gzdzss/gzdzss-oauth2)
+
 # gzdzss-web
 
 ## Project setup
