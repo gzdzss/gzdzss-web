@@ -6,7 +6,7 @@ export default {
     //api配置
     api : {
         //请求超时时间
-        timeout: 1000,
+        timeout: 6000,
         //重试次数
         maxRedirects : 0
     },
