@@ -22,5 +22,7 @@ export default {
     //存储 refreshToken的key
     refreshTokenKey: 'gzdzssRefreshToken',
     //token过期时间（秒）
-    accessTokenExpiresKey: 'gzdzssAccessTokenExpires'
+    accessTokenExpiresKey: 'gzdzssAccessTokenExpires',
+    //认证随机数
+    oauth2RandomKey: 'gzdzssOauth2RandomKey'
 }

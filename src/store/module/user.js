@@ -27,17 +27,17 @@ export default {
             })
         },
         handleLogout({commit}) {
-            return new Promise((resolve, reject) => {
-                logout().then(() => {
-                    commit('clearToken')
-                    resolve()
-                }).catch(err => {
-                    if (err && err.response && err.response.status === 401) {
+            if (getStorageAccessToken() !== null) {
+                return new Promise((resolve, reject) => {
+                    logout().then(() => {
+                        resolve()
+                    }).catch(err => {
+                        reject(err)
+                    }).finally(()=>{
                         commit('clearToken')
-                    }
-                    reject(err)
+                    })
                 })
-            })
+            }
         }
     }
 }

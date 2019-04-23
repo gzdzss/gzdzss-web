@@ -18,10 +18,30 @@ export const login = ({username, password}) => {
     });
 }
 
+
+export const getToken = ({code, redirect_uri}) => {
+    const param = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': redirect_uri
+    }
+    return request({
+        url: "/api/auth/oauth/token",
+        method: 'post',
+        params: param,
+        auth: oauth2client
+    });
+}
+
+
+
+
+
+
 export const logout = () => {
     return request({
-        url: "/api/auth/revoke",
-        method: 'post'
+        url: "/api/auth/logout",
+        method: 'get'
     });
 }
 

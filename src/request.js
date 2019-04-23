@@ -2,11 +2,7 @@ import axios from 'axios'
 import config from '@/config'
 import store from '@/store'
 import {refreshToken} from '@/api/userApi'
-import {
-    getAccessTokenExpires,
-    getStorageAccessToken,
-    getStorageRefreshToken
-} from "@/util";
+import {getAccessTokenExpires, getStorageAccessToken, getStorageRefreshToken} from "@/util";
 
 const {api} = config;
 
@@ -57,8 +53,10 @@ service.interceptors.response.use(
     function (e) {
         if (e && e.response) {
             let statusText = '';
-            if (e.response.data &&  e.response.data.error_description) {
-                statusText =  e.response.data.error_description
+            if (e.response.data && e.response.data.error_description) {
+                statusText = e.response.data.error_description
+            } else if (e.response.data && e.response.data.message) {
+                statusText = e.response.data.message;
             } else {
                 statusText = e.response.statusText
             }
@@ -66,6 +64,16 @@ service.interceptors.response.use(
                 hasError: true,
                 status: e.response.status,
                 statusText: statusText
+            }
+            store.commit('ON_HTTP_ERROR', error)
+            if (e.response.status === 401 && getStorageAccessToken() !==  null) {
+                store.commit('clearToken');
+            }
+        } else if (e && e.message) {
+            const error = {
+                hasError: true,
+                status: 'invoke error',
+                statusText: e.message
             }
             store.commit('ON_HTTP_ERROR', error)
         }

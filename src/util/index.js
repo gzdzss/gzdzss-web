@@ -1,7 +1,7 @@
 import config from '@/config'
 
 
-const {accessTokenExpiresKey, refreshTokenKey, accessTokenKey} = config;
+const {accessTokenExpiresKey, refreshTokenKey, accessTokenKey, oauth2RandomKey} = config;
 
 export const setStorageToken = (payload) => {
     //保存  accessToken
@@ -15,14 +15,14 @@ export const setStorageToken = (payload) => {
     }
     //保存  过期时间
     if (payload && payload.expires_in) {
-        const tokenExpires = (new Date().getTime() / 1000) + payload.expires_in;
+        const tokenExpires = (new Date().getTime() / 1000) + Number(payload.expires_in);
         localStorage.setItem(accessTokenExpiresKey, tokenExpires)
     }
 }
 
 
 export const jointAccessToken = (payload) => {
-    return  payload.token_type + " " + payload.access_token;
+    return payload.token_type + " " + payload.access_token;
 }
 
 
@@ -45,5 +45,19 @@ export const clearStorageToken = () => {
     localStorage.removeItem(refreshTokenKey)
     localStorage.removeItem(accessTokenExpiresKey)
 }
+
+export const createOauth2Random = () => {
+    let random = Math.random().toString(36).substr(2);
+    localStorage.setItem(oauth2RandomKey, random);
+    return random;
+}
+
+
+export const getOauth2Random = () => {
+    let random =  localStorage.getItem(oauth2RandomKey);
+    localStorage.removeItem(oauth2RandomKey)
+    return random;
+}
+
 
 
