@@ -68,7 +68,7 @@
                 }
             } else if (platform === 'github') {
                 let code = this.$route.query.code;
-                getTokenByGotHub(code).then((res) => {
+                getTokenByGotHub({code}).then((res) => {
                     this.$store.commit("setToken", res.data);
                     this.$router.push({
                         name: 'Index'

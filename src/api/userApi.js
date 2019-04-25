@@ -40,8 +40,17 @@ export const getTokenByGotHub = ({code}) => {
     }
     return request({
         url: "/api/auth/oauth2/github",
-        method: 'post',
+        method: 'get',
         params: param
+    });
+}
+
+
+
+export const getUser = () => {
+    return request({
+        url: "/api/auth/user",
+        method: 'get',
     });
 }
 

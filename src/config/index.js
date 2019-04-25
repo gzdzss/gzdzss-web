@@ -18,11 +18,11 @@ export default {
     },
 
     //存储token的key
-    accessTokenKey: 'gzdzssAccessToken',
+    accessTokenKey: 'gzdzssWebAccessToken',
     //存储 refreshToken的key
-    refreshTokenKey: 'gzdzssRefreshToken',
+    refreshTokenKey: 'gzdzssWebRefreshToken',
     //token过期时间（秒）
-    accessTokenExpiresKey: 'gzdzssAccessTokenExpires',
+    accessTokenExpiresKey: 'gzdzssWebAccessTokenExpires',
     //认证随机数
-    oauth2RandomKey: 'gzdzssOauth2RandomKey'
+    oauth2RandomKey: 'gzdzssWebOauth2RandomKey'
 }

@@ -1,7 +1,9 @@
 <template>
     <div>
         这个是首页<br>
-        token:{{accessToken}}
+        <div v-if="getUser">
+          Hello： {{nickName}}  <img :src="avatarUrl" width="40" height="40"/>
+        </div>
         <br>
         <button type="button" @click="test">test</button>
         <button type="button" @click="adminTest">adminTest</button>
@@ -35,18 +37,30 @@
             },
             accessToken() {
                 return this.$store.state.user.accessToken
+            },
+            getUser() {
+                return this.$store.state.user.getUser
+            },
+            avatarUrl() {
+                return this.$store.state.user.avatarUrl
+            },
+            nickName() {
+                return this.$store.state.user.nickName
             }
+        },
+        mounted () {
+            this.handleGetUser()
         },
         methods: {
             ...mapActions([
-                'handleLogout'
+                'handleLogout',
+                'handleGetUser',
             ]),
             test() {
                 test().then(res => {
                     alert(JSON.stringify(res.data))
                 })
             },
-
             xxx() {
                 xxx().then(res => {
                     alert(JSON.stringify(res.data))
