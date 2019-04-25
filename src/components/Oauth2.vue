@@ -8,7 +8,7 @@
 
 <script>
     import {getOauth2Random} from '@/util'
-    import {getToken} from '@/api/userApi'
+    import {getToken, getTokenByGotHub} from '@/api/userApi'
 
     export default {
         name: "Oauth2",
@@ -35,35 +35,50 @@
                 return;
             }
             let response_type = this.$route.query.response_type
-            if (response_type === 'code') {
-                let origin = window.location.origin;
+
+            let platform = this.$route.params.platform;
+
+            if (platform === 'gzdzss') {
+                if (response_type === 'code') {
+                    let origin = window.location.origin;
+                    let code = this.$route.query.code;
+                    getToken({code, origin}).then((res) => {
+                        this.$store.commit("setToken", res.data);
+                        this.$router.push({
+                            name: 'Index'
+                        })
+                    })
+                } else if (response_type === 'token') {
+                    let access_token = this.$route.query.access_token;
+                    let expires_in = this.$route.query.expires_in;
+                    let refresh_token = this.$route.query.refresh_token;
+                    let scope = this.$route.query.scope;
+                    let token_type = this.$route.query.token_type;
+                    const obj = {
+                        access_token: access_token,
+                        expires_in: expires_in,
+                        refresh_token: refresh_token,
+                        scope: scope,
+                        token_type: token_type,
+                    }
+                    this.$store.commit("setToken", obj);
+                    this.$router.push({
+                        name: 'Index'
+                    })
+                }
+            } else if (platform === 'github') {
                 let code = this.$route.query.code;
-                getToken({code, origin}).then((res) => {
+                getTokenByGotHub(code).then((res) => {
                     this.$store.commit("setToken", res.data);
                     this.$router.push({
                         name: 'Index'
                     })
                 })
-            } else if (response_type === 'token') {
-                let access_token = this.$route.query.access_token;
-                let expires_in = this.$route.query.expires_in;
-                let refresh_token = this.$route.query.refresh_token;
-                let scope = this.$route.query.scope;
-                let token_type = this.$route.query.token_type;
-                const obj = {
-                    access_token: access_token,
-                    expires_in: expires_in,
-                    refresh_token: refresh_token,
-                    scope: scope,
-                    token_type: token_type,
-                }
-                this.$store.commit("setToken", obj);
-                this.$router.push({
-                    name: 'Index'
-                })
             } else {
-                this.msg = '认证错误';
+                this.msg = '不支持的平台：' + platform;
+                return;
             }
+
         }
     }
 </script>

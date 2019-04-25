@@ -34,8 +34,33 @@ export const getToken = ({code, redirect_uri}) => {
 }
 
 
+export const getTokenByGotHub = ({code}) => {
+    const param = {
+        'code': code
+    }
+    return request({
+        url: "/api/auth/oauth2/github",
+        method: 'post',
+        params: param
+    });
+}
 
 
+
+
+export const test = () => {
+    return request({
+        url: "/api/auth/test",
+        method: 'get'
+    });
+}
+
+export const adminTest = () => {
+    return request({
+        url: "/api/auth/adminTest",
+        method: 'get'
+    });
+}
 
 
 export const logout = () => {

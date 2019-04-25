@@ -16,7 +16,7 @@ export default [
         component: () => import('@/components/Login')
     },
     {
-        path: '/oauth2',
+        path: '/:platform/oauth2',
         name: 'Oauth2',
         meta: {
             title: 'Oauth2登录',

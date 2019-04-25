@@ -12,11 +12,17 @@ export const list = () => {
 
 
 
-export const test = () => {
-
+export const orderTest = () => {
     return request({
         url: "/api/order/api/order/test",
         method: 'get',
     });
+}
 
+
+export const xxx = () => {
+    return request({
+        url: "/api/order/api/order/xxx",
+        method: 'get',
+    });
 }
