@@ -11,11 +11,18 @@ export default {
         maxRedirects : 0
     },
 
-    //客户端账号
-    oauth2client: {
-        username: 'aaaaa',
-        password: 'bbbbb'
+    oauth2: {
+        gzdzss: {
+            username: 'gzdzss',
+            password: 'gzdzss',
+            authUrl: 'https://auth.gzdzss.cn/oauth2'
+        },
+        github: {
+            username: '9c526a5818a44c4c8be4',
+            authUrl: 'https://github.com/login/oauth/authorize'
+        }
     },
+
 
     //存储token的key
     accessTokenKey: 'gzdzssWebAccessToken',

@@ -1,7 +1,11 @@
 import request from '@/request'
 import config from '@/config'
 
-const {oauth2client} = config
+
+const gzdzssAuth = {
+    username: config.oauth2.gzdzss.username,
+    password: config.oauth2.gzdzss.password
+}
 
 export const login = ({username, password}) => {
     const param = {
@@ -14,7 +18,7 @@ export const login = ({username, password}) => {
         url: "/api/auth/oauth/token",
         method: 'post',
         params: param,
-        auth: oauth2client
+        auth: gzdzssAuth
     });
 }
 
@@ -29,7 +33,7 @@ export const getToken = ({code, redirect_uri}) => {
         url: "/api/auth/oauth/token",
         method: 'post',
         params: param,
-        auth: oauth2client
+        auth: gzdzssAuth
     });
 }
 
@@ -46,15 +50,12 @@ export const getTokenByGotHub = ({code}) => {
 }
 
 
-
 export const getUser = () => {
     return request({
         url: "/api/auth/user",
         method: 'get',
     });
 }
-
-
 
 
 export const test = () => {
@@ -89,7 +90,7 @@ export const refreshToken = (refresh_token) => {
         url: "/api/auth/oauth/token",
         method: 'post',
         params: param,
-        auth: oauth2client
+        auth: gzdzssAuth
     });
 }
 
